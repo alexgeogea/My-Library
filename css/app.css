@@ -1,0 +1,11 @@
+.book-img {
+	width: 300px;
+	height: 400px;
+	background: url("http://placehold.it/300x400");
+}
+
+.checked {
+	display: block;
+	margin-bottom: 10px;
+}
+

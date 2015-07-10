@@ -1,87 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Books App</title>
+	<link rel="stylesheet" href="css/foundation.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-	<form>
-		<input type="text" placeholder="Search for a book"/>
-		<input type="button" value="Search" onclick="searchBook()"/>
-	</form>
-	<form>
-		<label for="title">Title</label>
-		<input type="text" id="title">
+	<!--Topbar navigation-->
+	<div class="row">
+		<div class="large-3 columns">
+			<h1><a href="#">Books Library</a></h1>
+		</div>
+		<div class="large-9 columns">
+			<ul class="right button-group">
+				<li><a href="#" class="button" data-reveal-id="wishlistModal">Wishlist</a></li>
+				<li><a href="#" class="button" data-reveal-id="addBookModal">Add book</a></li>
+			</ul>
+		</div>
+	</div>
+	<hr>
 
-		<label for="tauthor">Author</label>
-		<input type="text" id="author">
+	<!--Books display-->
+		<div id="books-container">
 
-		<label for="rating">Rating</label>
-		<input type="number" id="rating">
-		<input type="button" value="Add" onclick="addBook();">
-	</form>
+		</div>
 
-	<div id="books-container">
-	
+	<!--Add book modal-->
+	<div id="addBookModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+		<h2 id="modalTitle">Add a new book</h2>
+		<form>
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="row">
+						<div class="large-3 columns">
+							<label for="title" class="right inline">Title</label>
+						</div>
+						<div class="large-9 columns">
+							<input type="text" id="title">
+						</div>	
+					</div>
+				</div>
+			</div>
+			</br>
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="row">
+						<div class="large-3 columns">
+							<label for="image" class="right inline">Image</label>
+						</div>
+						<div class="large-9 columns">
+							<input type="url" id="image">
+						</div>	
+					</div>
+				</div>
+			</div>
+			</br>
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="row">
+						<div class="large-3 columns">
+							<label for="author" class="right inline">Author</label>
+						</div>
+						<div class="large-9 columns">
+							<input type="text" id="author">
+						</div>	
+					</div>
+				</div>
+			</div>
+			</br>
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="row">
+						<div class="large-3 columns">
+							<label for="rating" class="right inline">Rating</label>
+						</div>
+						<div class="large-9 columns">
+							<input type="number" id="rating">
+						</div>	
+					</div>
+				</div>
+			</div>
+		</br>
+			<a role"button" aria-label="submit form" href="#" class="button" onclick="addBook();">Add</a>
+		</form>
+		<a class="close-reveal-modal" aria-label="Close">&#215;</a>	
 	</div>
 
+	<!--Wishlist modal-->
+	<div id="wishlistModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitleWishlist" aria-hidden="true" role="dialog">
+		<h2 id="modalTitleWishlist">Books Wishlist</h2>
+		<a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+	</div>
+
+	<script type="text/javascript" src="js/vendor/jquery.js"></script>
+	<script type="text/javascript" src="js/foundation/foundation.js"></script>
+	<script type="text/javascript" src="js/foundation/foundation.reveal.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+
 	<script type="text/javascript">
-	var books = [];
-
-	if(typeof(Storage)  !== "undefined") {
-		books = JSON.parse(localStorage.getItem('books')) || [ ];
-	}
-
-	// Add a new book
-	function addBook() {
-		var titleInput = document.getElementById('title').value;
-		var authorInput = document.getElementById('author').value;
-		var ratingInput = document.getElementById('rating').value;
-		books.push({ 'title': titleInput, 'author': authorInput, 'rating': ratingInput});
-		localStorage.setItem( 'books', JSON.stringify( books ) );
-	}
-
-	// Display the books
-	var container = document.getElementById('books-container');
-	function displayBooks(arr) {
-		arr.forEach(function(item) {
-			var title = document.createElement('h3');
-			title.innerText = item.title;
-			container.appendChild(title);
-			var author = document.createElement('p');
-			author.innerText = item.author;
-			container.appendChild(author);
-			var rating = document.createElement('p');
-			rating.innerText = item.rating;
-			container.appendChild(rating);
-			var remove = document.createElement('button');
-			remove.innerText = "Delete";
-			container.appendChild(remove);
-		});
-	}
-
-	displayBooks(books);
-
-	// Delete a book
-	function deleteBook() {
-		var deleteBtn = document.querySelector('button');
-		deleteBtn.onclick = function(i) {
-			books.splice(i, 1) && localStorage.removeItem('books', i);
-		}
-	}
-
-	// Search for a book
-	function searchBook() {
-		var input = document.querySelector('input').value.toLowerCase();
-		var booksLength = books.length;
-		for (var i = 0; i<booksLength; i++ ) {
-			if(books[i].title.toLowerCase().indexOf(input) != -1 || books[i].author.toLowerCase().indexOf(input) != -1) {
-				document.getElementById('title').innerText = books[i].title;
-				document.getElementById('author').innerText = books[i].author;
-			}
-		}	
-	};		
+		$(document).foundation();
+	</script>
 	
-	</script>	
 </body>
 </html>
 
